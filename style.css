@@ -1,0 +1,43 @@
+.container
+ {
+ 	max-width: 100%
+ }
+ 
+ body
+ {
+ 	text-align: center;
+ 	font-size: 1.3em;
+ 	background-color: #f0f1c9;
+ }
+
+ input
+ {
+ 	padding: 10px;
+ 	background-color: white;
+ 	border: 1px solid #ccc;
+ }
+
+ input[type="url"]
+ {
+ 	width: 600px;
+ 	color: blue;
+ 	font-size: 0.9em;
+ 	opacity: 0.5;
+ }
+
+ button[type="submit"]
+ {
+ 	border-radius: 8px;
+ 	background-color: #17b33e;
+ 	color: white;
+ 	padding: 10px;
+ 	font-size: 0.8em;
+ 	font-family: verdana;
+
+ }
+
+.title
+ {
+ 	font-size: 1.5em;
+ 	font-family: cursive;
+ }
