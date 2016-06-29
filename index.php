@@ -10,16 +10,35 @@
 		<div class="container">
 			<br><br><br>
 			<h1 class="title">Shorten a URL</h1>
-			<form action="" method="post">
-				<input type="url" name="orgurl" placeholder="Enter Your URL here" required>
+			<form action="shorten.php" method="post">
+				<input type="url" name="orgurl" placeholder="Enter Your URL here" required />
+				<br>
+				<label>http://localhost/url-shortener/ </label>
+				<input type="text" name="srturl" placeholder="Shortened URL you wish" required/>
 				<button type="submit" name="short">Shorten</button>
 			</form>
 		</div>	
 		<?php
+			session_start();
+			if(isset($_SESSION["status"])):
+			?>
+			The Short URL you wish is already in use, Please try again.
+			<?php
+			endif;
+			if(isset($_SESSION["comment"])):
+			?>
+			Link has already been Shortened by Someone before. Please use that.<br>
+			<?php
+			endif;
+			if(isset($_SESSION["url"])):
+			?>
+
+			<?php echo $_SESSION["url"]; ?>
+			
+			<?php
+			endif;
 			$link=mysql_connect('localhost','root','') or die("ERROR Connecting Database");
 			$db=mysql_select_db('urlshortener',$link) or die("ERROR Connecting Database");
-		?>
-		<?php
 			if(isset($_GET['id']))
 			{
 				$id=$_GET['id'];
@@ -36,28 +55,7 @@
 					header("Location: $result");				
 				}
 			}
-		?>
-		<?php
-			if(isset($_POST["short"]))
-			{
-				$orgurl=$_POST["orgurl"];
-				$result=mysql_query("INSERT INTO url VALUES ('','$orgurl','')",$link);
-				if(!$result)
-				{
-					echo "Could not Shorten... Pls RETRY";
-				}
-				else
-				{
-					$id=mysql_insert_id();
-					$result1=base_convert($id, 10, 36);
-					$result=mysql_query("UPDATE url SET srturl='$result1' WHERE id=$id;",$link);
-					if($result)
-					{
-						$srturl="http://localhost/url-shortener/".$result1;
-						echo "Shortened URL: <a href=$srturl>$srturl</a>";						
-					}
-				}
-			}
+			session_destroy();
 		?>
 	</body>
 </html>
