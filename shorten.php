@@ -18,6 +18,7 @@
 		else
 		{
 				$srturl=$_POST["srturl"];
+				$srturl=strtolower($srturl);
 				$result=mysql_query("SELECT * FROM url WHERE srturl='$srturl'");
 				$count=mysql_num_rows($result);
 				if($count)
