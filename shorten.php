@@ -17,25 +17,25 @@
 		}
 		else
 		{
-				$srturl=$_POST["srturl"];
-				$srturl=strtolower($srturl);
-				$result=mysql_query("SELECT * FROM url WHERE srturl='$srturl'");
-				$count=mysql_num_rows($result);
-				if($count)
+			$srturl=$_POST["srturl"];
+			$srturl=strtolower($srturl);
+			$result=mysql_query("SELECT * FROM url WHERE srturl='$srturl'");
+			$count=mysql_num_rows($result);
+			if($count)
+			{
+				$_SESSION["status"]=1;
+				header("Location: index.php");
+			}
+			else
+			{
+				$result=mysql_query("INSERT into url VALUES ('','$orgurl','$srturl','')",$link);
+				if($result)
 				{
-					$_SESSION["status"]=1;
-					header("Location: index.php");
+					$srturl="http://localhost/url-shortener/".$srturl;
+					$_SESSION["url"]=$srturl;
+					header("Location: index.php");						
 				}
-				else
-				{
-					$result=mysql_query("INSERT into url VALUES ('','$orgurl','$srturl')",$link);
-					if($result)
-					{
-						$srturl="http://localhost/url-shortener/".$srturl;
-						$_SESSION["url"]=$srturl;
-						header("Location: index.php");						
-					}
-				}
+			}
 		}
 	}
 	else
